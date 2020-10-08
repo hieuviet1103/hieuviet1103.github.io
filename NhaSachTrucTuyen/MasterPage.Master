@@ -1,0 +1,122 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="NhaSachTrucTuyen.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        *{
+            box-sizing:border-box;
+            font-family:Tahoma;
+            font-weight:bold;
+        }
+
+        a:hover{
+            color:orange;
+        }
+        a{
+            text-decoration:none;
+        }
+        body{
+            background-color:aqua;
+            min-width:403px;
+            width:100%;
+        }
+        .container{
+            margin-right:15px;
+        }
+        .header{
+            background-color:cornflowerblue;
+            text-align:center;
+            font-size:30px;
+            font-weight:bold;
+            color:white;
+            padding-top:10px;
+            padding-bottom:10px;
+        }
+        .navbar{
+            text-align:center;
+            margin-top:10px;
+            margin-left:10px;
+            margin-right:10px;
+        }
+        .navbar a{
+            margin-left:20px;
+            margin-right:20px;
+        }
+
+        .row{
+            display:flex;
+        }
+        .side{
+            flex:1;
+           float:left; 
+           min-width:140px;
+        }
+        .main{
+            flex:3;
+            background-color:white;
+            
+        }
+        .footer{
+            background-color:cornflowerblue;
+            text-align:center;
+            clear:both;
+        }
+        .footer p{
+            margin:0px;
+            padding-top:5px;
+            padding-bottom:5px;
+        }
+        @media (max-width:640px)
+        {
+            .row, .navbar{
+                flex-direction:column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">        
+        <div class="container" >
+            <div class="header">
+                NHÀ SÁCH TRỰC TUYẾN
+            </div>
+            <div class="navbar">
+                <a href="default.aspx" > Trang chủ</a>
+                <a href="SachTheoNXB.aspx">Sách theo NXB</a>
+                <a href="CapNhatSach.aspx">Cập nhật sách</a>
+            </div>
+            <div class="row">
+
+            <div class="side" >
+
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="MaCD" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" Width="100%">
+                     <AlternatingRowStyle BackColor="White" />
+                    <Columns>
+                        <asp:HyperLinkField DataNavigateUrlFields="MaCD" DataNavigateUrlFormatString="SachTheoChuDe.aspx?MaCD={0}" DataTextField="TenCD" HeaderText="Loại sách" >
+                            <HeaderStyle BackColor="cornflowerblue" />
+                        </asp:HyperLinkField>
+                    </Columns> 
+                </asp:GridView>
+
+
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BookStoreConnectionString %>" SelectCommand="SELECT * FROM [tChuDe]"></asp:SqlDataSource>
+
+
+            </div>
+            <div class="main">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+         </div>
+            <div class="footer" >
+                <p>Địa chỉ: Bình Dương, Điện thoại: 0000000000</p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
